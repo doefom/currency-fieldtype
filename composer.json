@@ -1,0 +1,19 @@
+{
+    "name": "doefom/currency-fieldtype",
+    "autoload": {
+        "psr-4": {
+            "Doefom\\CurrencyFieldtype\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Currency Fieldtype",
+            "description": "Currency Fieldtype addon"
+        },
+        "laravel": {
+            "providers": [
+                "Doefom\\CurrencyFieldtype\\ServiceProvider"
+            ]
+        }
+    }
+}
