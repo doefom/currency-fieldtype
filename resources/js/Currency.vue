@@ -1,19 +1,25 @@
 <template>
     <div>
         <text-input
-            :value="value"
+            id="currency"
             type="text"
-            @input="updateDebounced"
+            v-model="test"
         />
     </div>
 </template>
 
 <script>
+import Inputmask from "inputmask";
 
 export default {
     mixins: [Fieldtype],
+    mounted() {
+        Inputmask({ alias: "currency" }).mask('#currency');
+    },
     data() {
-        return {};
+        return {
+            test: null,
+        };
     },
     computed: {
         inputType() {
