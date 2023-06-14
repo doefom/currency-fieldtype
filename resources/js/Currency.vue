@@ -14,7 +14,14 @@ import Inputmask from "inputmask";
 export default {
     mixins: [Fieldtype],
     mounted() {
-        Inputmask({ alias: "currency" }).mask('#currency');
+        Inputmask(
+            {
+                alias: "currency",
+                groupSeparator: ",",
+                radixPoint: ",",
+                suffix: " €"
+            }
+        ).mask('#currency');
     },
     data() {
         return {
