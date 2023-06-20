@@ -1,10 +1,18 @@
 <template>
-    <div>
+    <div style="display: flex;">
         <text-input
             id="currency"
             type="text"
-            v-model="test"
+            v-model="result.val"
         />
+        <select-input
+            :options="[
+                { value: 'EUR', label: '€'},
+                { value: 'USD', label: '$'}
+                ]"
+            v-model="result.iso">
+        </select-input>
+        {{ result }}
     </div>
 </template>
 
@@ -19,17 +27,24 @@ export default {
                 alias: "currency",
                 groupSeparator: ",",
                 radixPoint: ",",
-                suffix: " €"
             }
         ).mask('#currency');
     },
     data() {
         return {
-            test: null,
-        };
+            result: this.value ?? {},
+            val: this.value?.val,
+            iso: this.value?.iso,
+            symbol: this.value?.symbol,
+        }
     },
     computed: {
         inputType() {
+        }
+    },
+    watch: {
+        result(result) {
+            this.update(result)
         }
     }
 };
