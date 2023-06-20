@@ -9,7 +9,7 @@ class CurrencyFieldtype extends Fieldtype
 {
 
 // count 168
-    private $currency_list = array(
+    private $currencyList = array(
         "AFA" => array("name" => "Afghan Afghani", "symbol" => "؋"),
         "ALL" => array("name" => "Albanian Lek", "symbol" => "Lek"),
         "DZD" => array("name" => "Algerian Dinar", "symbol" => "دج"),
@@ -190,20 +190,6 @@ class CurrencyFieldtype extends Fieldtype
         return null;
     }
 
-    protected function configFieldItems(): array
-    {
-        return [
-            'currency' => [
-                'display' => 'Currency',
-                'instructions' => 'Choose which currency you want to use by default.<br>You can change it when creating an entry as well.',
-                'type' => 'select',
-                'default' => 'EUR',
-                'options' => collect($this->currency_list)->map(fn($item) => $item['name'] . " (" . $item['symbol'] . ")"),
-                'width' => 50
-            ],
-        ];
-    }
-
     /**
      * Pre-process the data before it gets sent to the publish page.
      *
@@ -225,4 +211,68 @@ class CurrencyFieldtype extends Fieldtype
     {
         return $data;
     }
+
+    protected function configFieldItems(): array
+    {
+        return [
+            'iso' => [
+                'display' => 'Currency',
+                'instructions' => 'Choose which currency you want to use for the field.',
+                'type' => 'select',
+                'default' => 'EUR',
+                'options' => collect($this->currencyList)->map(fn($item) => $item['name'] . " (" . $item['symbol'] . ")"),
+                'width' => 50
+            ],
+            'symbol_position' => [
+                'options' => [
+                    'prepend' => 'Prepend',
+                    'append' => 'Append',
+                ],
+                'default' => 'append',
+                'type' => 'button_group',
+                'display' => 'Symbol Position',
+                'icon' => 'button_group',
+                'listable' => 'hidden',
+                'instructions_position' => 'above',
+                'visibility' => 'visible',
+                'hide_display' => false,
+            ],
+            'group_separator' => [
+                'options' => [
+                    '.' => '.',
+                    ',' => ',',
+                ],
+                'default' => '.',
+                'type' => 'button_group',
+                'display' => 'Group Separator',
+                'icon' => 'button_group',
+                'listable' => 'hidden',
+                'instructions_position' => 'above',
+                'visibility' => 'visible',
+                'hide_display' => false,
+            ],
+            'radix_point' => [
+                'options' => [
+                    ',' => ',',
+                    '.' => '.',
+                ],
+                'default' => ',',
+                'type' => 'button_group',
+                'display' => 'Radix Point',
+                'icon' => 'button_group',
+                'listable' => 'hidden',
+                'instructions_position' => 'above',
+                'visibility' => 'visible',
+                'hide_display' => false,
+            ]
+        ];
+    }
+
+    public function preload()
+    {
+        return [
+            'currencies' => $this->currencyList
+        ];
+    }
+
 }
