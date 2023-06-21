@@ -52,8 +52,8 @@ export default {
         onInput(val) {
             this.update({
                 value: val,
-                valueFormatted: val + ' ' + this.symbol,
-                valueRaw: this.parseToRawValue(val),
+                formatted: val + ' ' + this.symbol,
+                raw: this.parseToRawValue(val),
                 iso: this.config.iso,
                 symbol: this.symbol,
                 group_separator: this.groupSeparator,
@@ -62,6 +62,9 @@ export default {
         },
 
         parseToRawValue(val) {
+            if (val === undefined || val === null) {
+                return null;
+            }
             // 1: Replace all group separators to only have left the radix point
             // 2: Replace all a comma with a dot.
             // If the number is already in US format, the dot will be replaced with a dot.
