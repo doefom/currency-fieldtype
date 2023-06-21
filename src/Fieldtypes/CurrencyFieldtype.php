@@ -233,6 +233,7 @@ class CurrencyFieldtype extends Fieldtype
                 'icon' => 'button_group',
                 'listable' => 'hidden',
                 'instructions_position' => 'above',
+                'instructions' => 'Select if the currency symbol should be prepended or appended to the number value.',
                 'visibility' => 'visible',
                 'hide_display' => false,
             ],
@@ -247,6 +248,7 @@ class CurrencyFieldtype extends Fieldtype
                 'icon' => 'button_group',
                 'listable' => 'hidden',
                 'instructions_position' => 'above',
+                'instructions' => 'Select between <code>,</code> and <code>.</code> for the radix point. If you choose one as the radix point, the other will automatically be the group separator.',
                 'visibility' => 'visible',
                 'hide_display' => false,
             ]

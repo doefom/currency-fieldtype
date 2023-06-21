@@ -52,7 +52,7 @@ export default {
         onInput(val) {
             this.update({
                 value: val,
-                formatted: val + ' ' + this.symbol,
+                formatted: this.prepend ? `${this.symbol} ${val}` : `${val} ${this.symbol}`,
                 raw: this.parseToRawValue(val),
                 iso: this.config.iso,
                 symbol: this.symbol,
