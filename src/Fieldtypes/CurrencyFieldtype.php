@@ -237,20 +237,6 @@ class CurrencyFieldtype extends Fieldtype
                 'visibility' => 'visible',
                 'hide_display' => false,
             ],
-            'group_separator' => [
-                'options' => [
-                    '.' => '.',
-                    ',' => ',',
-                ],
-                'default' => '.',
-                'type' => 'button_group',
-                'display' => 'Group Separator',
-                'icon' => 'button_group',
-                'listable' => 'hidden',
-                'instructions_position' => 'above',
-                'visibility' => 'visible',
-                'hide_display' => false,
-            ],
             'radix_point' => [
                 'options' => [
                     ',' => ',',

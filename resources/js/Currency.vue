@@ -15,6 +15,7 @@ import Inputmask from "inputmask";
 export default {
     mixins: [Fieldtype],
     mounted() {
+        // Add input mask for currency fieldtype.
         Inputmask({
             alias: "currency",
             groupSeparator: this.groupSeparator,
@@ -29,11 +30,10 @@ export default {
     computed: {
         /**
          * Returns the symbol for the currency input.
-         * If no symbol is provided in the value, it uses the default symbol from the currencies.
          * @returns {string}
          */
         symbol() {
-            return " " + (this.value?.symbol ?? this.meta.currencies[this.config.iso].symbol)
+            return this.meta.currencies[this.config.iso].symbol
         },
         append() {
             return this.config.symbol_position === 'append'
@@ -42,7 +42,7 @@ export default {
             return this.config.symbol_position === 'prepend'
         },
         groupSeparator() {
-            return this.config.group_separator
+            return this.radixPoint === '.' ? ',' : '.';
         },
         radixPoint() {
             return this.config.radix_point
@@ -51,12 +51,22 @@ export default {
     methods: {
         onInput(val) {
             this.update({
-                value: val, // TODO: Save value as float. Note: parseFloat won't work on european number formats.
+                value: val,
+                valueRaw: this.parseToRawValue(val),
                 iso: this.config.iso,
                 symbol: this.symbol,
                 group_separator: this.groupSeparator,
                 radix_point: this.radixPoint
             });
+        },
+
+        parseToRawValue(val) {
+            // 1: Replace all group separators to only have left the radix point
+            // 2: Replace all a comma with a dot.
+            // If the number is already in US format, the dot will be replaced with a dot.
+            // Else the number is in EU format and the comma (radix point) will be replaced with a dot.
+            let usFormat = val.replaceAll(this.groupSeparator, '').replace(this.radixPoint, '.');
+            return parseFloat(usFormat);
         },
     }
 };
