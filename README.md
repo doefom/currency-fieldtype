@@ -16,8 +16,8 @@ useful information like:
 - the group separator (for `1.234,56 €` the group separator would be `.`)
 - the radix point (for `1.234,56 €` the radix point would be `,`)
 
-On top of that it implements a mask on the input field to make sure the number input is properly formatted as configured
-in the field at any time.
+On top of that it implements a mask on the input field to make sure the input is properly formatted as configured in the
+field at any time.
 
 ## How to Install
 
@@ -38,7 +38,7 @@ then lets you configure a few things:
 | Configuration Option | Description                                                                                                                                | Default |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|
 | Currency             | Choose which currency you want to use for the field.                                                                                       | EUR     |
-| Symbol Position      | Select if the currency symbol should be _prepended_ or _appended_ to the number value.                                                     | append  |
+| Symbol Position      | Select if the currency symbol should be _prepended_ or _appended_ to the input value.                                                      | append  |
 | Radix Point          | Select between `,` and `.` for the radix point. If you choose one as the radix point, the other will automatically be the group separator. | ,       |
 
 ### Usage in Antlers Templates
