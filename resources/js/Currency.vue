@@ -1,11 +1,11 @@
 <template>
     <text-input
-        v-model="val"
+        :value="value"
         type="text"
         id="currency"
-        @input="onInput"
-        :append="append ? symbol : false"
-        :prepend="prepend ? symbol : false"
+        @input="update"
+        :append="!prepend ? this.symbol : false"
+        :prepend="prepend ? this.symbol : false"
     />
 </template>
 
@@ -22,11 +22,6 @@ export default {
             radixPoint: this.radixPoint
         }).mask('#currency');
     },
-    data() {
-        return {
-            val: this.value?.value
-        }
-    },
     computed: {
         /**
          * Returns the symbol for the currency input.
@@ -35,43 +30,15 @@ export default {
         symbol() {
             return this.meta.currencies[this.config.iso].symbol
         },
-        append() {
-            return this.config.symbol_position === 'append'
-        },
         prepend() {
-            return this.config.symbol_position === 'prepend'
-        },
-        groupSeparator() {
-            return this.radixPoint === '.' ? ',' : '.';
+            return this.config.prepend;
         },
         radixPoint() {
             return this.config.radix_point
         },
+        groupSeparator() {
+            return this.radixPoint === '.' ? ',' : '.';
+        },
     },
-    methods: {
-        onInput(val) {
-            this.update({
-                value: val,
-                formatted: this.prepend ? `${this.symbol} ${val}` : `${val} ${this.symbol}`,
-                raw: this.parseToRawValue(val),
-                iso: this.config.iso,
-                symbol: this.symbol,
-                group_separator: this.groupSeparator,
-                radix_point: this.radixPoint
-            });
-        },
-
-        parseToRawValue(val) {
-            if (val === undefined || val === null) {
-                return null;
-            }
-            // 1: Replace all group separators to only have left the radix point
-            // 2: Replace all a comma with a dot.
-            // If the number is already in US format, the dot will be replaced with a dot.
-            // Else the number is in EU format and the comma (radix point) will be replaced with a dot.
-            let usFormat = val.replaceAll(this.groupSeparator, '').replace(this.radixPoint, '.');
-            return parseFloat(usFormat);
-        },
-    }
 };
 </script>

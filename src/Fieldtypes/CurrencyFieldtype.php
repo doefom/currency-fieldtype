@@ -3,6 +3,8 @@
 namespace Doefom\CurrencyFieldtype\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
+use Statamic\Support\Arr;
+use Statamic\Support\Str;
 
 class CurrencyFieldtype extends Fieldtype
 {
@@ -197,7 +199,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function preProcess($data)
     {
-        return $data;
+        return Arr::get($data, 'value');
     }
 
     /**
@@ -208,7 +210,27 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function process($data)
     {
-        return $data;
+        $config = $this->getFieldConfig();
+        $iso = Arr::get($config, 'iso');
+        $symbol = Arr::get($config, 'symbol');
+        $prepend = Arr::get($config, 'prepend');
+        $radix_point = Arr::get($config, 'radix_point');
+        $group_separator = Arr::get($config, 'group_separator');
+
+        $raw = Str::replace($group_separator, '', $data);
+        $raw = Str::replace($radix_point, '.', $raw);
+        $raw = floatval($raw);
+
+        return [
+            'value' => $data,
+            'formatted' => $prepend ? "$symbol$data" : "$data$symbol",
+            'raw' => $raw,
+            'iso' => $iso,
+            'symbol' => $symbol,
+            'prepend' => $prepend,
+            'radix_point' => $radix_point,
+            'group_separator' => $group_separator,
+        ];
     }
 
     protected function configFieldItems(): array
@@ -222,20 +244,16 @@ class CurrencyFieldtype extends Fieldtype
                 'options' => collect($this->currencyList)->map(fn($item) => $item['name'] . " (" . $item['symbol'] . ")"),
                 'width' => 50
             ],
-            'symbol_position' => [
-                'options' => [
-                    'prepend' => 'Prepend',
-                    'append' => 'Append',
-                ],
-                'default' => 'append',
-                'type' => 'button_group',
-                'display' => 'Symbol Position',
-                'icon' => 'button_group',
+            'prepend' => [
+                'default' => false,
+                'type' => 'toggle',
+                'display' => 'Prepend Currency Symbol',
+                'instructions' => "By default the currency symbol will be appended to the input value (e.g. <code>1.234,56€</code>). If checked, the currency symbol will be prepended to the input value (e.g. <code>$1.234,56</code>).",
+                'icon' => 'toggle',
                 'listable' => 'hidden',
                 'instructions_position' => 'above',
-                'instructions' => 'Select if the currency symbol should be prepended or appended to the number value.',
                 'visibility' => 'visible',
-                'hide_display' => false,
+                'hide_display' => false
             ],
             'radix_point' => [
                 'options' => [
@@ -259,6 +277,30 @@ class CurrencyFieldtype extends Fieldtype
     {
         return [
             'currencies' => $this->currencyList
+        ];
+    }
+
+    private function getSymbol(string $iso)
+    {
+        $currency = Arr::get($this->currencyList, $iso);
+        return Arr::get($currency, 'symbol');
+    }
+
+    private function getFieldConfig()
+    {
+        $config = $this->field()->config();
+        $radixPoint = Arr::get($config, 'radix_point');
+        $prepend = Arr::get($config, 'prepend');
+        $iso = Arr::get($config, 'iso');
+        $groupSeparator = $radixPoint === ',' ? '.' : ',';
+        $symbol = $this->getSymbol($iso);
+
+        return [
+            'iso' => $iso,
+            'symbol' => $symbol,
+            'prepend' => $prepend,
+            'radix_point' => $radixPoint,
+            'group_separator' => $groupSeparator,
         ];
     }
 
