@@ -2,7 +2,6 @@
 
 namespace Doefom\CurrencyFieldtype\Fieldtypes;
 
-use NumberFormatter;
 use Statamic\Fields\Fieldtype;
 
 class CurrencyFieldtype extends Fieldtype

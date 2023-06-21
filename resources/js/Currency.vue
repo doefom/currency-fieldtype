@@ -52,6 +52,7 @@ export default {
         onInput(val) {
             this.update({
                 value: val,
+                valueFormatted: val + ' ' + this.symbol,
                 valueRaw: this.parseToRawValue(val),
                 iso: this.config.iso,
                 symbol: this.symbol,
