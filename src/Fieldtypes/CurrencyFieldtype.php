@@ -238,7 +238,7 @@ class CurrencyFieldtype extends Fieldtype
         return [
             'iso' => [
                 'display' => 'Currency',
-                'instructions' => 'Choose which currency you want to use for the field.',
+                'instructions' => 'Select which currency you want to use for the field.',
                 'type' => 'select',
                 'default' => 'EUR',
                 'options' => collect($this->currencyList)->map(fn($item) => $item['name'] . " (" . $item['symbol'] . ")"),

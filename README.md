@@ -13,6 +13,7 @@ useful information like:
 - the raw value as a float (`1234.56`)
 - the ISO code for the selected currency (`EUR`)
 - the symbol for the selected currency (`€`)
+- whether the symbol is appended or prepended to the input string (`true`/`false`)
 - the group separator (for `1.234,56 €` the group separator would be `.`)
 - the radix point (for `1.234,56 €` the radix point would be `,`)
 
@@ -35,11 +36,11 @@ composer require doefom/currency-fieldtype
 You can add the fieldtype to your blueprints like you would any other fieldtype that is already part of Statamic. It
 then lets you configure a few things:
 
-| Configuration Option | Description                                                                                                                                | Default |
-|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| Currency             | Choose which currency you want to use for the field.                                                                                       | EUR     |
-| Symbol Position      | Select if the currency symbol should be _prepended_ or _appended_ to the input value.                                                      | append  |
-| Radix Point          | Select between `,` and `.` for the radix point. If you choose one as the radix point, the other will automatically be the group separator. | ,       |
+| Configuration Option    | Description                                                                                                                                | Default |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| Currency                | Select which currency you want to use for the field.                                                                                       | `'EUR'` |
+| Prepend Currency Symbol | Choose if the currency symbol should be _prepended_ or _appended_ to the input value. By default the symbol is appended.                   | `false` |
+| Radix Point             | Select between `,` and `.` for the radix point. If you choose one as the radix point, the other will automatically be the group separator. | `','`   |
 
 ### Usage in Antlers Templates
 
@@ -51,8 +52,9 @@ formatted: '1.234,56 €'
 raw: 1234.56
 iso: EUR
 symbol: €
-group_separator: .
+prepend: false
 radix_point: ','
+group_separator: .
 ```
 
 And you may use it like so:
@@ -63,8 +65,9 @@ And you may use it like so:
 {{ currency_field_handle:raw }}             => 1234.56
 {{ currency_field_handle:iso }}             => 'EUR'
 {{ currency_field_handle:symbol }}          => '€'
-{{ currency_field_handle:group_separator }} => '.'
+{{ currency_field_handle:prepend }}         => false
 {{ currency_field_handle:radix_point }}     => ','
+{{ currency_field_handle:group_separator }} => '.'
 ```
 
 ## Caveats
