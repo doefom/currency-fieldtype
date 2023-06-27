@@ -48,6 +48,11 @@ class Currencies
         return Arr::get(self::$currencyList, $iso);
     }
 
+    /**
+     * Get the symbol of a currency by its ISO identifier ("EUR", "USD", etc.).
+     * @param string $iso
+     * @return string|null
+     */
     public static function getSymbol(string $iso): string|null
     {
         $currency = self::getCurrency($iso);
