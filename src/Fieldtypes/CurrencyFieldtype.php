@@ -48,6 +48,7 @@ class CurrencyFieldtype extends Fieldtype
         $space = Arr::get($currency, 'space');
         $groupSeparator = Arr::get($currency, 'group_separator');
         $radixPoint = Arr::get($currency, 'radix_point');
+        $digits = Arr::get($currency, 'digits');
 
         $raw = Str::replace($groupSeparator, '', $data);
         $raw = Str::replace($radixPoint, '.', $raw);
@@ -64,6 +65,7 @@ class CurrencyFieldtype extends Fieldtype
             'space' => $space,
             'radix_point' => $radixPoint,
             'group_separator' => $groupSeparator,
+            'digits' => $digits
         ];
     }
 

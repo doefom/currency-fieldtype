@@ -9,16 +9,17 @@ especially
 suitable for fields like `price` or `account_balance` in any of your blueprints. In the background it also brings you
 useful information like:
 
-- the value as a string (`1.234,56`)
-- the value as a formatted string (`1.234,56€`)
+- the value as a string (`'1,234.56'`)
+- the value as a formatted string (`'$1,234.56'`)
 - the raw value as a float (`1234.56`)
-- the ISO code for the selected currency (`EUR`)
-- the name of the selected currency (`Euro`)
-- the symbol for the selected currency (`€`)
+- the ISO code for the selected currency (`'USD'`)
+- the name of the selected currency (`'US Dollar'`)
+- the symbol for the selected currency (`'$'`)
 - whether the symbol is appended or prepended to the number (`true`/`false`)
-- whether there is a space between the symbol and the number
-- the radix point (for `1.234,56€` the radix point would be `,`)
-- the group separator (for `1.234,56€` the group separator would be `.`)
+- whether there is a space between the symbol and the number (`true`/`false`)
+- the group separator (for `'$1,234.56'` the group separator would be `,`)
+- the radix point (for `'$1,234.56` the radix point would be `.`)
+- the number of digits (for `'$1,234.56` the number of digits would be `2`)
 
 On top of that it implements a mask on the input field to make sure the input is properly formatted as configured in the
 field at any time.
@@ -73,31 +74,33 @@ configuration, everything you need to do is select which currency you would like
 The following values are available when using the field in an Antlers template:
 
 ```markdown
-value: '1.234,56'
-formatted: '1.234,56€'
+value: '1,234.56'
+formatted: '$1,234.56'
 raw: 1234.56
-iso: EUR
-name: Euro
-symbol: €
-append: true
-space: true
-radix_point: ','
-group_separator: .
+iso: USD
+name: 'US Dollar'
+symbol: $
+append: false
+space: false
+radix_point: .
+group_separator: ','
+digits: 2
 ```
 
 And you may use it like so:
 
 ```text
-{{ currency_field_handle:value }}           => '1.234,56'
-{{ currency_field_handle:formatted }}       => '1.234,56 €'
+{{ currency_field_handle:value }}           => '1,234.56'
+{{ currency_field_handle:formatted }}       => '$1,234.56'
 {{ currency_field_handle:raw }}             => 1234.56
-{{ currency_field_handle:iso }}             => 'EUR'
-{{ currency_field_handle:name }}            => 'Euro'
-{{ currency_field_handle:symbol }}          => '€'
-{{ currency_field_handle:append }}          => true
-{{ currency_field_handle:space }}           => true
-{{ currency_field_handle:radix_point }}     => ','
-{{ currency_field_handle:group_separator }} => '.'
+{{ currency_field_handle:iso }}             => 'USD'
+{{ currency_field_handle:name }}            => 'US Dollar'
+{{ currency_field_handle:symbol }}          => '$'
+{{ currency_field_handle:append }}          => false
+{{ currency_field_handle:space }}           => false
+{{ currency_field_handle:group_separator }} => ','
+{{ currency_field_handle:radix_point }}     => '.'
+{{ currency_field_handle:digits }}          => 2
 ```
 
 ## Caveats
