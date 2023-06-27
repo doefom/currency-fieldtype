@@ -41,6 +41,12 @@ field at any time.
 14. NZD (New Zealand Dollar)
 15. MXN (Mexican Peso)
 16. BRL (Brazilian Real)
+17. DKK (Danish Krone)
+18. PLN (Polish Złoty)
+19. THB (Thai Baht)
+20. CZK (Czech Koruna)
+21. TRY (Turkish Lira)
+22. RON (Romanian Leu)
 
 ## How to Install
 
