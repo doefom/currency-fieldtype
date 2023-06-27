@@ -23,6 +23,25 @@ useful information like:
 On top of that it implements a mask on the input field to make sure the input is properly formatted as configured in the
 field at any time.
 
+## Currently Supported Currencies
+
+1. USD (US Dollar)
+2. EUR (Euro)
+3. JPY (Japanese Yen)
+4. GBP (Sterling)
+5. CNY (Renminbi)
+6. AUD (Australian Dollar)
+7. CAD (Canadian Dollar)
+8. CHF (Swiss Franc)
+9. HKD (Hong Kong Dollar)
+10. SGD (Singapore Dollar)
+11. SEK (Swedish Krona)
+12. KRW (South Korean Won)
+13. NOK (Norwegian Krone)
+14. NZD (New Zealand Dollar)
+15. MXN (Mexican Peso)
+16. BRL (Brazilian Real)
+
 ## How to Install
 
 You can search for this addon in the `Tools > Addons` section of the Statamic control panel and click **install**, or
