@@ -16,11 +16,17 @@ export default {
     mixins: [Fieldtype],
     mounted() {
         // Add input mask for currency fieldtype.
-        Inputmask({
+        const config = {
             alias: "currency",
             groupSeparator: this.groupSeparator,
-            radixPoint: this.radixPoint
-        }).mask('#currency');
+            digits: this.digits,
+        }
+
+        if (this.digits > 0) {
+            config.radixPoint = this.radixPoint;
+        }
+
+        Inputmask(config).mask('#currency');
     },
     computed: {
         iso() {
@@ -41,6 +47,9 @@ export default {
         },
         groupSeparator() {
             return this.meta.currencies[this.iso].group_separator
+        },
+        digits() {
+            return this.meta.currencies[this.iso].digits
         },
     },
 };
