@@ -4,18 +4,21 @@
 
 ## Features
 
-This addon provides a "Currency" fieldtype that lets you choose one out of more than 160 currencies and is especially
+This addon provides a "Currency" fieldtype that lets you choose one of the most used currencies in the world and is
+especially
 suitable for fields like `price` or `account_balance` in any of your blueprints. In the background it also brings you
 useful information like:
 
-- the value as a formatted string (`1.234,56 €`)
 - the value as a string (`1.234,56`)
+- the value as a formatted string (`1.234,56€`)
 - the raw value as a float (`1234.56`)
 - the ISO code for the selected currency (`EUR`)
+- the name of the selected currency (`Euro`)
 - the symbol for the selected currency (`€`)
-- whether the symbol is appended or prepended to the input string (`true`/`false`)
-- the group separator (for `1.234,56 €` the group separator would be `.`)
-- the radix point (for `1.234,56 €` the radix point would be `,`)
+- whether the symbol is appended or prepended to the number (`true`/`false`)
+- whether there is a space between the symbol and the number
+- the radix point (for `1.234,56€` the radix point would be `,`)
+- the group separator (for `1.234,56€` the group separator would be `.`)
 
 On top of that it implements a mask on the input field to make sure the input is properly formatted as configured in the
 field at any time.
@@ -33,14 +36,12 @@ composer require doefom/currency-fieldtype
 
 ### Field Configuration
 
-You can add the fieldtype to your blueprints like you would any other fieldtype that is already part of Statamic. It
-then lets you configure a few things:
+You can add the fieldtype to your blueprints like you would any other fieldtype that is already part of Statamic. For
+configuration, everything you need to do is select which currency you would like to use, and you're good to go.
 
-| Configuration Option    | Description                                                                                                                                | Default |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| Currency                | Select which currency you want to use for the field.                                                                                       | `'EUR'` |
-| Prepend Currency Symbol | Choose if the currency symbol should be _prepended_ or _appended_ to the input value. By default the symbol is appended.                   | `false` |
-| Radix Point             | Select between `,` and `.` for the radix point. If you choose one as the radix point, the other will automatically be the group separator. | `','`   |
+| Configuration Option | Description                                          | Default |
+|----------------------|------------------------------------------------------|---------|
+| Currency             | Select which currency you want to use for the field. | `'EUR'` |
 
 ### Usage in Antlers Templates
 
@@ -48,11 +49,13 @@ The following values are available when using the field in an Antlers template:
 
 ```markdown
 value: '1.234,56'
-formatted: '1.234,56 €'
+formatted: '1.234,56€'
 raw: 1234.56
 iso: EUR
+name: Euro
 symbol: €
-prepend: false
+append: true
+space: true
 radix_point: ','
 group_separator: .
 ```
@@ -64,8 +67,10 @@ And you may use it like so:
 {{ currency_field_handle:formatted }}       => '1.234,56 €'
 {{ currency_field_handle:raw }}             => 1234.56
 {{ currency_field_handle:iso }}             => 'EUR'
+{{ currency_field_handle:name }}            => 'Euro'
 {{ currency_field_handle:symbol }}          => '€'
-{{ currency_field_handle:prepend }}         => false
+{{ currency_field_handle:append }}          => true
+{{ currency_field_handle:space }}           => true
 {{ currency_field_handle:radix_point }}     => ','
 {{ currency_field_handle:group_separator }} => '.'
 ```

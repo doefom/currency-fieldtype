@@ -4,8 +4,8 @@
         type="text"
         id="currency"
         @input="update"
-        :append="!prepend ? this.symbol : false"
-        :prepend="prepend ? this.symbol : false"
+        :append="append ? this.symbol : false"
+        :prepend="!append ? this.symbol : false"
     />
 </template>
 
@@ -23,21 +23,24 @@ export default {
         }).mask('#currency');
     },
     computed: {
+        iso() {
+            return this.config.iso;
+        },
         /**
          * Returns the symbol for the currency input.
          * @returns {string}
          */
         symbol() {
-            return this.meta.currencies[this.config.iso].symbol
+            return this.meta.currencies[this.iso].symbol
         },
-        prepend() {
-            return this.config.prepend;
+        append() {
+            return this.meta.currencies[this.iso].append
         },
         radixPoint() {
-            return this.config.radix_point
+            return this.meta.currencies[this.iso].radix_point
         },
         groupSeparator() {
-            return this.radixPoint === '.' ? ',' : '.';
+            return this.meta.currencies[this.iso].group_separator
         },
     },
 };
