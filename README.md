@@ -90,8 +90,8 @@ name: 'US Dollar'
 symbol: $
 append: false
 space: false
-radix_point: .
 group_separator: ','
+radix_point: .
 digits: 2
 ```
 
