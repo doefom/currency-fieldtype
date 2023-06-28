@@ -4,10 +4,9 @@
 
 ## Features
 
-This addon provides a "Currency" fieldtype that lets you choose one of the most used currencies in the world and is
-especially
-suitable for fields like `price` or `account_balance` in any of your blueprints. In the background it also brings you
-useful information like:
+This Statamic addon provides a Currency fieldtype that lets you choose one of the most used currencies in the world and is
+especially suitable for fields like `price` or `account_balance` in any of your blueprints. In the background it also
+brings you useful information like:
 
 - the value as a string (`'1,234.56'`)
 - the value as a formatted string (`'$1,234.56'`)

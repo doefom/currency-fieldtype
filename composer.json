@@ -1,5 +1,6 @@
 {
     "name": "doefom/currency-fieldtype",
+    "description": "This Statamic addon provides a Currency fieldtype that lets you choose one of the most used currencies in the world and is especially suitable for fields like \"price\" or \"account_balance\" in any of your blueprints.",
     "autoload": {
         "psr-4": {
             "Doefom\\CurrencyFieldtype\\": "src"
@@ -8,12 +9,18 @@
     "extra": {
         "statamic": {
             "name": "Currency Fieldtype",
-            "description": "Currency Fieldtype addon"
+            "description": "Currency Fieldtype addon",
+            "editions": ["pro"]
         },
         "laravel": {
             "providers": [
                 "Doefom\\CurrencyFieldtype\\ServiceProvider"
             ]
         }
-    }
+    },
+    "require": {
+        "php": "^8.0",
+        "statamic/cms": "^v4.0"
+    },
+    "license": "proprietary"
 }
