@@ -4,9 +4,13 @@
 
 ## Features
 
-This Statamic addon provides a Currency fieldtype that lets you choose one of the most used currencies in the world and is
-especially suitable for fields like `price` or `account_balance` in any of your blueprints. In the background it also
-brings you useful information like:
+Currency Fieldtype is a Statamic addon that turns financial data chaos into a well-choreographed ballet! It's an
+intelligent, dynamic tool, flexing and adapting its input mask to conquer any global currency format. Well, not any, but
+many, 22 to be precise ([see which ones we support](#currently-supported-currencies)). Say goodbye to formatting faux
+pas. For unruly numbers and wayward symbols, it’s game over. Experience a symphony of precision and ease – that's the
+Currency Fieldtype!
+
+While you can safely ignore the addon when using it, it still provides useful information in the background, such as:
 
 - the value as a string (`'1,234.56'`)
 - the value as a formatted string (`'$1,234.56'`)
@@ -20,8 +24,8 @@ brings you useful information like:
 - the radix point (for `'$1,234.56` the radix point would be `.`)
 - the number of digits (for `'$1,234.56` the number of digits would be `2`)
 
-On top of that it implements a mask on the input field to make sure the input is properly formatted as configured in the
-field at any time.
+To make all that happen it implements a mask on the input field to make sure the input is properly formatted as
+configured in the field at any time.
 
 ## Currently Supported Currencies
 
@@ -47,6 +51,12 @@ field at any time.
 20. CZK (Czech Koruna)
 21. TRY (Turkish Lira)
 22. RON (Romanian Leu)
+
+### Your currency is missing?
+
+Got a currency that's not yet on our roster? Feel free to contact us or open
+an [issue on GitHub](https://github.com/doefom/currency-fieldtype/issues). We're happy to expand our currency
+repertoire for you. We won't just add your request, we'll celebrate it!
 
 ## How to Install
 
