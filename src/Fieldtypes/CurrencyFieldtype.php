@@ -39,7 +39,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function process($data)
     {
-        $config = $this->getFieldConfig();
+        $config = $this->field()->config();
         $iso = Arr::get($config, 'iso');
         $currency = Currencies::getCurrency($iso);
         $name = Arr::get($currency, 'name');
@@ -56,7 +56,7 @@ class CurrencyFieldtype extends Fieldtype
 
         return [
             'value' => $data,
-            'formatted' => $append ? "$data$symbol" : "$symbol$data",
+            'formatted' => $append ? $data . ($space ? " " : "") . $symbol : $symbol . ($space ? " " : "") . $data,
             'raw' => $raw,
             'iso' => $iso,
             'name' => $name,
@@ -87,24 +87,6 @@ class CurrencyFieldtype extends Fieldtype
     {
         return [
             'currencies' => Currencies::$currencyList
-        ];
-    }
-
-    private function getFieldConfig()
-    {
-        $config = $this->field()->config();
-        $radixPoint = Arr::get($config, 'radix_point');
-        $prepend = Arr::get($config, 'prepend');
-        $iso = Arr::get($config, 'iso');
-        $groupSeparator = $radixPoint === ',' ? '.' : ',';
-        $symbol = Currencies::getSymbol($iso);
-
-        return [
-            'iso' => $iso,
-            'symbol' => $symbol,
-            'prepend' => $prepend,
-            'radix_point' => $radixPoint,
-            'group_separator' => $groupSeparator,
         ];
     }
 
