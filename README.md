@@ -66,7 +66,7 @@ configuration, everything you need to do is select which currency you would like
 
 | Configuration Option | Description                                          | Default |
 |----------------------|------------------------------------------------------|---------|
-| Currency             | Select which currency you want to use for the field. | `'EUR'` |
+| Currency             | Select which currency you want to use for the field. | `'USD'` |
 
 ### Usage in Antlers Templates
 
