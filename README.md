@@ -1,17 +1,15 @@
 # Currency Fieldtype
 
-> Currency Fieldtype is a Statamic addon that provides a "Currency" fieldtype.
-
-## Features
-
 Currency Fieldtype is a Statamic addon that turns financial data chaos into a well-choreographed ballet! It's an
 intelligent, dynamic tool, flexing and adapting its input mask to conquer any global currency format. Well, not any, but
 many, 22 to be precise ([see which ones we support](#currently-supported-currencies)). Say goodbye to formatting faux
 pas. For unruly numbers and wayward symbols, it’s game over. Experience a symphony of precision and ease – that's the
 Currency Fieldtype!
 
-While you can safely ignore the addon when using it, it still provides useful information in the background in case you
-need it, such as:
+## Features
+
+The addon makes sure you always got the right format for any of the supported currencies. While you can safely ignore
+the addon when using it, it still provides useful information in the background in case you need it, such as:
 
 - the value as a string (`'1,234.56'`)
 - the value as a formatted string (`'$1,234.56'`)
