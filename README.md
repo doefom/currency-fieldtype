@@ -10,7 +10,8 @@ many, 22 to be precise ([see which ones we support](#currently-supported-currenc
 pas. For unruly numbers and wayward symbols, it’s game over. Experience a symphony of precision and ease – that's the
 Currency Fieldtype!
 
-While you can safely ignore the addon when using it, it still provides useful information in the background, such as:
+While you can safely ignore the addon when using it, it still provides useful information in the background in case you
+need it, such as:
 
 - the value as a string (`'1,234.56'`)
 - the value as a formatted string (`'$1,234.56'`)
@@ -54,9 +55,9 @@ configured in the field at any time.
 
 ### Your currency is missing?
 
-Got a currency that's not yet on our roster? Feel free to contact us or open
-an [issue on GitHub](https://github.com/doefom/currency-fieldtype/issues). We're happy to expand our currency
-repertoire for you. We won't just add your request, we'll celebrate it!
+Got a currency that's not yet on our list? Feel free to contact us or open
+an [issue on GitHub](https://github.com/doefom/currency-fieldtype/issues). We're happy to expand our currency repertoire
+for you. We won't just add your request, we'll celebrate it!
 
 ## How to Install
 
