@@ -117,5 +117,5 @@ If you add the currency field to a blueprint in a specific configuration, then s
 later change the field configuration in the blueprint, you might run into issues with the formatting of the already
 saved values.
 
-To fix this you will have to type something in the field (it listens for an input event) and then save the entry again
-to have the correct data stored in the entry after the field configuration change.
+To fix this you will have to type something in the field(s) of the affected entries (it listens for an input event) and
+then save the entry again to have the correct data stored in the entry after the field configuration changed.
