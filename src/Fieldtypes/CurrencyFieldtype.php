@@ -2,7 +2,10 @@
 
 namespace Doefom\CurrencyFieldtype\Fieldtypes;
 
+use Doefom\CurrencyFieldtype\Models\Currency;
 use Doefom\CurrencyFieldtype\Utils\Currencies;
+use NumberFormatter;
+use Statamic\Facades\Site;
 use Statamic\Fields\Fieldtype;
 use Statamic\Support\Arr;
 use Statamic\Support\Str;
@@ -28,7 +31,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function preProcess($data)
     {
-        return Arr::get($data, 'value');
+        return $data;
     }
 
     /**
@@ -42,31 +45,13 @@ class CurrencyFieldtype extends Fieldtype
         $config = $this->field()->config();
         $iso = Arr::get($config, 'iso');
         $currency = Currencies::getCurrency($iso);
-        $name = Arr::get($currency, 'name');
-        $symbol = Currencies::getSymbol($iso);
-        $append = Arr::get($currency, 'append');
-        $space = Arr::get($currency, 'space');
         $groupSeparator = Arr::get($currency, 'group_separator');
         $radixPoint = Arr::get($currency, 'radix_point');
-        $digits = Arr::get($currency, 'digits');
 
         $raw = Str::replace($groupSeparator, '', $data);
         $raw = Str::replace($radixPoint, '.', $raw);
-        $raw = floatval($raw);
 
-        return [
-            'value' => $data,
-            'formatted' => $append ? $data . ($space ? " " : "") . $symbol : $symbol . ($space ? " " : "") . $data,
-            'raw' => $raw,
-            'iso' => $iso,
-            'name' => $name,
-            'symbol' => $symbol,
-            'append' => $append,
-            'space' => $space,
-            'radix_point' => $radixPoint,
-            'group_separator' => $groupSeparator,
-            'digits' => $digits
-        ];
+        return floatval($raw);
     }
 
     protected function configFieldItems(): array
@@ -86,8 +71,14 @@ class CurrencyFieldtype extends Fieldtype
     public function preload()
     {
         return [
-            'currencies' => Currencies::$currencyList
+            'currencies' => Currencies::$currencyList,
+            'patter' => (new NumberFormatter(Site::current()->handle(), NumberFormatter::CURRENCY))->getPattern()
         ];
+    }
+
+    public function augment($value)
+    {
+        return new Currency($value, $this->field()->config());
     }
 
 }

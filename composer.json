@@ -20,7 +20,8 @@
     },
     "require": {
         "php": "^8.0",
-        "statamic/cms": "^v4.0"
+        "statamic/cms": "^v4.0",
+      "ext-intl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.2"
