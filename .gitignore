@@ -3,3 +3,4 @@ vendor
 mix-manifest.json
 
 resources/dist/hot
+.phpunit.cache
