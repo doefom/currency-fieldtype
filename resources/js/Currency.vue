@@ -1,9 +1,9 @@
 <template>
     <text-input
-        :value="val"
+        :value="value"
         type="text"
         id="currency"
-        @input="onInput"
+        @input="update"
         :append="append ? this.symbol : false"
         :prepend="!append ? this.symbol : false"
     />
@@ -16,7 +16,8 @@ export default {
     mixins: [Fieldtype],
     mounted() {
         // Add input mask for currency fieldtype.
-        // #,##0.00 ¤
+        console.log(this.value)
+        console.log(this.meta)
         const config = {
             alias: 'currency',
             groupSeparator: this.groupSeparator,
@@ -27,14 +28,7 @@ export default {
             config.radixPoint = this.radixPoint;
         }
 
-        console.log(this.meta);
-
         Inputmask(config).mask('#currency');
-    },
-    data() {
-        return {
-            val: this.meta.formatted_no_symbol
-        }
     },
     computed: {
         /**
@@ -57,10 +51,5 @@ export default {
             return this.meta.digits
         },
     },
-    methods: {
-        onInput(val) {
-            this.update(val)
-        },
-    }
 };
 </script>
