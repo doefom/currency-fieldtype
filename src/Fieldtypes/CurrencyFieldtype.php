@@ -12,13 +12,6 @@ use Statamic\Support\Arr;
 class CurrencyFieldtype extends Fieldtype
 {
 
-    protected NumberFormatter $fmt;
-
-    public function __construct(NumberFormatter $fmt)
-    {
-        $this->fmt = $fmt;
-    }
-
     /**
      * The blank/default value.
      *
@@ -41,9 +34,9 @@ class CurrencyFieldtype extends Fieldtype
             return null;
         }
 
-        $this->fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, $this->getIso());
-        $formatted = $this->fmt->formatCurrency($data, $this->getIso());
-        $symbol = $this->fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+        $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
+        $formatted = $fmt->formatCurrency($data, $this->getIso());
+        $symbol = $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 
         return trim(str_replace($symbol, '', $formatted));
     }
@@ -56,13 +49,18 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function process($data)
     {
-        $fmt = App::make(NumberFormatter::class, ['style' => NumberFormatter::DECIMAL]);
+        $fmt = App::make(NumberFormatter::class, ['style' => NumberFormatter::DECIMAL, 'iso' => $this->getIso()]);
         $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, $this->getIso());
         $float = $fmt->parse($data);
 
         return $float === false ? null : $float;
     }
 
+    /**
+     * Defines the configuration for the currency field.
+     *
+     * @return array Configuration for the currency field.
+     */
     protected function configFieldItems(): array
     {
         return [
@@ -77,26 +75,43 @@ class CurrencyFieldtype extends Fieldtype
         ];
     }
 
-    public function preload()
+    /**
+     * Preloads necessary currency data for the fieldtype's Vue component.
+     *
+     * @return array Array containing symbols, grouping and radix information.
+     */
+    public function preload(): array
     {
-        $this->fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, $this->getIso());
+        $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
+
         return [
-            'symbol' => $this->fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
-            'append' => str_starts_with($this->fmt->getPattern(), '¤'),
-            'group_separator' => $this->fmt->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL),
-            'radix_point' => $this->fmt->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
-            'digits' => $this->fmt->getAttribute(NumberFormatter::FRACTION_DIGITS),
+            'symbol' => $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
+            'append' => str_starts_with($fmt->getPattern(), '¤'),
+            'group_separator' => $fmt->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL),
+            'radix_point' => $fmt->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
+            'digits' => $fmt->getAttribute(NumberFormatter::FRACTION_DIGITS),
         ];
     }
 
+    /**
+     * Augments the value of the field by wrapping it in a Currency model.
+     *
+     * @param mixed $value The value to augment.
+     * @return Currency The augmented value wrapped in a Currency model.
+     */
     public function augment($value)
     {
         return new Currency($value, $this->field()->config());
     }
 
-    private function getIso()
+    /**
+     * Fetches the ISO code of the selected currency from the field's configuration.
+     *
+     * @return string The ISO code of the currency.
+     */
+    private function getIso(): string
     {
-        return Arr::get($this->field()->config(), 'iso', 'USD');
+        return Arr::get($this->field()->config(), 'iso');
     }
 
 }

@@ -4,6 +4,7 @@ namespace Doefom\CurrencyFieldtype;
 
 use Doefom\CurrencyFieldtype\Fieldtypes\CurrencyFieldtype;
 use Illuminate\Contracts\Foundation\Application;
+use InvalidArgumentException;
 use NumberFormatter;
 use Statamic\Facades\Site;
 use Statamic\Providers\AddonServiceProvider;
@@ -23,8 +24,17 @@ class ServiceProvider extends AddonServiceProvider
     public function register()
     {
         $this->app->bind(NumberFormatter::class, function (Application $app, array $params = []): NumberFormatter {
+            if (!Arr::has($params, 'iso')) {
+                throw new InvalidArgumentException('The required iso key is missing in params array');
+            }
+
             $style = Arr::get($params, 'style', NumberFormatter::CURRENCY);
-            return new NumberFormatter(Site::current()->locale(), $style);
+            $iso = Arr::get($params, 'iso');
+
+            $fmt = new NumberFormatter(Site::current()->locale(), $style);
+            $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, $iso);
+
+            return $fmt;
         });
     }
 
