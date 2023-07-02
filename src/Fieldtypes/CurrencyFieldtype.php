@@ -42,16 +42,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     public function process($data)
     {
-        $config = $this->field()->config();
-        $iso = Arr::get($config, 'iso');
-        $currency = Currencies::getCurrency($iso);
-        $groupSeparator = Arr::get($currency, 'group_separator');
-        $radixPoint = Arr::get($currency, 'radix_point');
-
-        $raw = Str::replace($groupSeparator, '', $data);
-        $raw = Str::replace($radixPoint, '.', $raw);
-
-        return floatval($raw);
+        return $data;
     }
 
     protected function configFieldItems(): array
@@ -70,9 +61,19 @@ class CurrencyFieldtype extends Fieldtype
 
     public function preload()
     {
+        $config = $this->field()->config();
+        $iso = Arr::get($config, 'iso');
+
+        $fmt = new NumberFormatter(Site::current()->handle(), NumberFormatter::CURRENCY);
+        $formattedNoSymbol = $this->field()->value() === null ? null: $fmt->formatCurrency($this->field->value(), $iso);
+
         return [
-            'currencies' => Currencies::$currencyList,
-            'patter' => (new NumberFormatter(Site::current()->handle(), NumberFormatter::CURRENCY))->getPattern()
+            'symbol' => Currencies::getSymbol($iso),
+            'append' => str_starts_with($fmt->getPattern(), '¤'),
+            'group_separator' => $fmt->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL),
+            'radix_point' => $fmt->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
+            'digits' => $fmt->getAttribute(NumberFormatter::FRACTION_DIGITS),
+            'formatted_no_symbol' => $formattedNoSymbol
         ];
     }
 

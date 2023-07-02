@@ -27,36 +27,34 @@ export default {
             config.radixPoint = this.radixPoint;
         }
 
+        console.log(this.meta);
+
         Inputmask(config).mask('#currency');
     },
     data() {
         return {
-            val: this.value.value
+            val: this.meta.formatted_no_symbol
         }
     },
     computed: {
-        iso() {
-            return this.config.iso;
-        },
         /**
          * Returns the symbol for the currency input.
          * @returns {string}
          */
         symbol() {
-            return this.meta.currencies[this.iso].symbol
+            return this.meta.symbol
         },
         append() {
-            return this.meta.currencies[this.iso].append
+            return this.meta.append
         },
         radixPoint() {
-            // TODO: Parse radix point from pattern and so on
-            return this.meta.currencies[this.iso].radix_point
+            return this.meta.radix_point
         },
         groupSeparator() {
-            return this.meta.currencies[this.iso].group_separator
+            return this.meta.group_separator
         },
         digits() {
-            return this.meta.currencies[this.iso].digits
+            return this.meta.digits
         },
     },
     methods: {
