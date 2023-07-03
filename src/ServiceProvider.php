@@ -15,10 +15,11 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $vite = [
         'input' => [
-            'resources/js/addon.js',
-            'resources/css/addon.css',
+            'resources/js/cp.js',
+            'resources/css/cp.css',
         ],
         'publicDirectory' => 'resources/dist',
+        'hotFile' => __DIR__ . '/../resources/dist/hot',
     ];
 
     public function register()

@@ -1,12 +1,12 @@
 {
-  "resources/css/addon.css": {
-    "file": "assets/addon-4ed993c7.js",
+  "resources/css/cp.css": {
+    "file": "assets/cp-4ed993c7.js",
     "isEntry": true,
-    "src": "resources/css/addon.css"
+    "src": "resources/css/cp.css"
   },
-  "resources/js/addon.js": {
-    "file": "assets/addon-f80070e6.js",
+  "resources/js/cp.js": {
+    "file": "assets/cp-f80070e6.js",
     "isEntry": true,
-    "src": "resources/js/addon.js"
+    "src": "resources/js/cp.js"
   }
 }
