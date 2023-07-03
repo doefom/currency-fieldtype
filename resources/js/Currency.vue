@@ -39,6 +39,7 @@ export default {
             return this.meta.symbol
         },
         append() {
+            console.log(this.meta.append)
             return this.meta.append
         },
         radixPoint() {

@@ -86,7 +86,7 @@ class CurrencyFieldtype extends Fieldtype
 
         return [
             'symbol' => $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
-            'append' => str_starts_with($fmt->getPattern(), '¤'),
+            'append' => ends_with($fmt->getPattern(), '¤'),
             'group_separator' => $fmt->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL),
             'radix_point' => $fmt->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
             'digits' => $fmt->getAttribute(NumberFormatter::FRACTION_DIGITS),
