@@ -69,7 +69,7 @@ class CurrencyFieldtype extends Fieldtype
                 'instructions' => 'Select which currency you want to use for the field.',
                 'type' => 'select',
                 'default' => 'USD',
-                'options' => collect(Currencies::$currencyList)->map(fn($item) => $item['name'] . " (" . $item['symbol'] . ")"),
+                'options' => Currencies::$currencyList,
                 'width' => 50
             ],
         ];
