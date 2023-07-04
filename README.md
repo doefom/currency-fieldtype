@@ -265,9 +265,3 @@ we're happy to add yours as well!
 This addon is under active maintenance. If something doesn't go as planned, or you see an opportunity to improve, just
 open up a [GitHub issue,](https://github.com/doefom/currency-fieldtype/issues) and we'll do our best to take your
 request into account.
-
-## Attributions
-
-### [heroicons](https://heroicons.com/)
-
-Icons used in this package are from https://heroicons.com/.
