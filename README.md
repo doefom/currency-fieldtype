@@ -16,8 +16,8 @@ Here's the information you'll get:
 - the symbol for the selected currency (`'$'`)
 - whether the symbol is appended or prepended to the number (`true`/`false`)
 - the group separator (for `'$1,234.56'` the group separator would be `,`)
-- the radix point (for `'$1,234.56` the radix point would be `.`)
-- the number of decimal digits (for `'$1,234.56` the number of digits would be `2`)
+- the radix point (for `'$1,234.56'` the radix point would be `.`)
+- the number of decimal digits (for `'$1,234.56'` the number of digits would be `2`)
 
 ### Input Mask
 
@@ -85,8 +85,6 @@ will be displayed as `$1,234.56`. If you then convert to `JPY` (Japanese Yen) wh
 wrong result of `¥1,235`. That's just something to keep in mind in case you'd need to reconfigure the field.
 
 ## Supported Currencies
-
-Here's the full list of the currencies we currently support.
 
 ```text
 "AFA" => "Afghan Afghani",
