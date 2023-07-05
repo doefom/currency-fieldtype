@@ -2,6 +2,7 @@
 
 namespace Doefom\CurrencyFieldtype\Augmentables;
 
+use Doefom\CurrencyFieldtype\Utils\Currencies;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use NumberFormatter;
@@ -42,6 +43,7 @@ class AugmentedCurrency extends AbstractAugmented
             'formatted',
             'formatted_no_symbol',
             'iso',
+            'numeric_code',
             'symbol',
             'append',
             'group_separator',
@@ -91,6 +93,17 @@ class AugmentedCurrency extends AbstractAugmented
     public function iso(): string|null
     {
         return Arr::get($this->data->config, 'iso');
+    }
+
+    /**
+     * Returns the numeric code of the currency.
+     *
+     * @return string|null
+     */
+    public function numericCode(): string|null
+    {
+        $currency = Currencies::getCurrency($this->iso());
+        return Arr::get($currency, 'numeric_code');
     }
 
     /**
