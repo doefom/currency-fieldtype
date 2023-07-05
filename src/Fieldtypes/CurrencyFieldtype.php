@@ -77,10 +77,6 @@ class CurrencyFieldtype extends Fieldtype
                 'options' => collect(Currencies::$currencyList)
                     ->map(fn($item, $key) => Arr::get($item, 'name') . " ($key)")
                     ->sortBy(fn($val) => $val),
-                'max_items' => 1,
-                'taggable' => true,
-                'push_tags' => false,
-                'clearable' => true,
                 'width' => 50
             ],
         ];
