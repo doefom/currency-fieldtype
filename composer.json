@@ -10,7 +10,7 @@
         "statamic": {
             "name": "Currency Fieldtype",
             "description": "Currency Fieldtype addon",
-            "editions": ["pro"]
+            "editions": ["free"]
         },
         "laravel": {
             "providers": [
