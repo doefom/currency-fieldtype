@@ -31,9 +31,9 @@ class CurrencyFieldtype extends Fieldtype
      * Pre-process the data before it gets sent to the publish page.
      *
      * @param mixed $data
-     * @return array|mixed
+     * @return string|null
      */
-    public function preProcess($data)
+    public function preProcess($data): ?string
     {
         if ($data === null) {
             return null;
@@ -44,6 +44,22 @@ class CurrencyFieldtype extends Fieldtype
         $symbol = $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 
         return trim(str_replace($symbol, '', $formatted));
+    }
+
+    /**
+     * Pre-process the data before it gets sent to the publish page.
+     *
+     * @param $data
+     * @return string|null
+     */
+    public function preProcessIndex($data): ?string
+    {
+        if ($data === null) {
+            return null;
+        }
+
+        $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
+        return $fmt->formatCurrency($data, $this->getIso());
     }
 
     /**
