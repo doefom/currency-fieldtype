@@ -1,7 +1,8 @@
 # Currency Fieldtype
 
-Currency Fieldtype is a Statamic addon that lets you handle any currency with ease. Well, not any, but many at least.
-168 to be precise. See which [currencies we currently support](#supported-currencies).
+Currency Fieldtype is a Statamic addon that lets you handle any currency with ease by utilizing an input mask. Well, not
+any, but many at least. 25 of the world's most traded ones to be precise. See
+which [currencies we currently support](#supported-currencies).
 
 ## Features
 
@@ -85,6 +86,11 @@ For example:
 Let's say we have an entry with a price (the field uses the Currency Fieldtype) of `1234.56`. In `USD` (US Dollar) this
 will be displayed as `$1,234.56`. If you then convert to `JPY` (Japanese Yen) which has `0` decimal digits, you'll get a
 wrong result of `¥1,235`. That's just something to keep in mind in case you'd need to reconfigure the field.
+
+### Exchange rates
+
+If you change the currency in the field configuration we just use another format, that's it. We do not convert any
+currency into another.
 
 ## Supported Currencies
 
