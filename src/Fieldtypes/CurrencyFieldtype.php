@@ -74,9 +74,13 @@ class CurrencyFieldtype extends Fieldtype
                 'instructions' => 'Select which currency you want to use for the field.',
                 'type' => 'select',
                 'default' => 'USD',
-                'options' => collect(Currencies::$top25)
+                'options' => collect(Currencies::$currencyList)
                     ->map(fn($item, $key) => Arr::get($item, 'name') . " ($key)")
                     ->sortBy(fn($val) => $val),
+                'max_items' => 1,
+                'taggable' => true,
+                'push_tags' => false,
+                'clearable' => true,
                 'width' => 50
             ],
         ];
