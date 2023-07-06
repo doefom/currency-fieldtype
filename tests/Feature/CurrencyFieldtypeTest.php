@@ -15,7 +15,7 @@ class CurrencyFieldtypeTest extends TestCase
     protected Currency $augmented;
 
     /**
-     * Set up a field of currency fieldtype with the following configuration:
+     * Set up a field of currency fieldtype with a value of 1234.56 and the following configuration:
      * handle: price
      * iso: USD
      *
