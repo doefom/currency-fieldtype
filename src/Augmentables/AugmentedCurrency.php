@@ -123,7 +123,7 @@ class AugmentedCurrency extends AbstractAugmented
      */
     public function append(): bool
     {
-        return str_starts_with($this->fmt->getPattern(), '¤');
+        return str_ends_with($this->fmt->getPattern(), '¤');
     }
 
     /**
