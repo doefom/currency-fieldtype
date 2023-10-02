@@ -11,7 +11,8 @@
 
 <script>
 import Inputmask from "inputmask";
-
+import Fieldtype from '../../../../statamic/cms/resources/js/components/fieldtypes/Fieldtype.vue';
+    
 export default {
     mixins: [Fieldtype],
     mounted() {
@@ -36,7 +37,7 @@ export default {
          * @returns {string}
          */
         id() {
-            return 'currency-input-' + this.meta.handle;
+            return 'currency-input-' + this.fieldId;
         },
         /**
          * Returns the symbol for the currency input.
