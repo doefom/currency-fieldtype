@@ -36,7 +36,7 @@ export default {
          * @returns {string}
          */
         id() {
-            return 'currency-input-' + this.meta.handle;
+            return 'currency-input-' + this.fieldId;
         },
         /**
          * Returns the symbol for the currency input.
