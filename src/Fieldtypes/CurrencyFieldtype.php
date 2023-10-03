@@ -39,6 +39,8 @@ class CurrencyFieldtype extends Fieldtype
             return null;
         }
 
+        $data = $this->convertFromStorage($data);
+
         $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
         $formatted = $fmt->formatCurrency($data, $this->getIso());
         $symbol = $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
@@ -47,7 +49,7 @@ class CurrencyFieldtype extends Fieldtype
     }
 
     /**
-     * Pre-process the data before it gets sent to the publish page.
+     * Pre-process the data before it gets sent to the listing/index page.
      *
      * @param $data
      * @return string|null
@@ -57,6 +59,8 @@ class CurrencyFieldtype extends Fieldtype
         if ($data === null) {
             return null;
         }
+
+        $data = $this->convertFromStorage($data);
 
         $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
         return $fmt->formatCurrency($data, $this->getIso());
@@ -74,7 +78,8 @@ class CurrencyFieldtype extends Fieldtype
         $fmt->setTextAttribute(NumberFormatter::CURRENCY_CODE, $this->getIso());
         $float = $fmt->parse($data);
 
-        return $float === false ? null : $float;
+        $float = $float === false ? null : $float;
+        return $this->convertToStorage($float);
     }
 
     /**
@@ -93,6 +98,14 @@ class CurrencyFieldtype extends Fieldtype
                 'options' => collect(Currencies::$currencyList)
                     ->map(fn($item, $key) => Arr::get($item, 'name') . " ($key)")
                     ->sortBy(fn($val) => $val),
+                'width' => 50
+            ],
+
+            'store_sub_units' => [
+                'display' => 'Sub Units',
+                'instructions' => 'Store values in their lowest sub-unit _(eg, USD is stored in cents)_.',
+                'type' => 'toggle',
+                'default' => false,
                 'width' => 50
             ],
         ];
@@ -136,6 +149,43 @@ class CurrencyFieldtype extends Fieldtype
     private function getIso(): string
     {
         return Arr::get($this->field()->config(), 'iso');
+    }
+
+    private function convertToStorage($value)
+    {
+        if( $value > 0 && $this->usesSubUnitStorage() ){
+            $value *= $this->getSubUnitFactor();
+        }
+        return $value;
+    }
+
+    private function convertFromStorage($value)
+    {
+        if( $value > 0 && $this->usesSubUnitStorage() ){
+            $value /= $this->getSubUnitFactor();
+        }
+        return $value;
+    }
+
+    /**
+     * Fetches the sub-unit factor from the field's configuration.
+     *
+     * @return integer The sub-unit factor of the currency.
+     */
+    private function getSubUnitFactor(): int
+    {
+        $currency = Currencies::getCurrency($this->getIso());
+        return Arr::get($currency, 'sub_unit_factor', 100);
+    }
+
+    /**
+     * Fetches the sub-unit storage boolean from the field's configuration.
+     *
+     * @return bool The sub-unit boolean of the currency.
+     */
+    private function usesSubUnitStorage(): bool
+    {
+        return Arr::get($this->field()->config(), 'store_sub_units', false);
     }
 
 }
