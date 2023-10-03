@@ -83,6 +83,11 @@ class CurrencyFieldtypeTest extends TestCase
         $this->assertEquals(1234.56, $this->augmented->value);
     }
 
+    public function test_augmented_display_value()
+    {
+        $this->assertEquals(1234.56, $this->augmented->display_value);
+    }
+
     public function test_augmented_formatted()
     {
         $this->assertEquals('$1,234.56', $this->augmented->formatted);
