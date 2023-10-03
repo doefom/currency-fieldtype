@@ -11,7 +11,6 @@
 
 <script>
 import Inputmask from "inputmask";
-import Fieldtype from '../../../../statamic/cms/resources/js/components/fieldtypes/Fieldtype.vue';
     
 export default {
     mixins: [Fieldtype],
