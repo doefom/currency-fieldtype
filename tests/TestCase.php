@@ -1,10 +1,14 @@
 <?php
 
-use \PHPUnit\Framework\TestCase as BaseTestCase;
+namespace Tests;
+
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Orchestra\Testbench\Concerns\CreatesApplication;
 use Statamic\Providers\StatamicServiceProvider;
 
-class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
 
     protected function getPackageProviders($app)
     {
@@ -13,5 +17,4 @@ class TestCase extends BaseTestCase
             StatamicServiceProvider::class,
         ];
     }
-
 }
