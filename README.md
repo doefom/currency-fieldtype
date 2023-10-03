@@ -6,7 +6,7 @@ which [currencies we currently support](#supported-currencies).
 
 ## Features
 
-The addon makes sure you always got the right format depending on the locale and currency that's being used. While you
+The addon makes sure you always get the right format depending on the locale and currency that's being used. While you
 can safely ignore the addon when using it, it still provides useful information in the background in case you need it.
 Here's the information you'll get:
 
@@ -40,11 +40,13 @@ composer require doefom/currency-fieldtype
 ### Field Configuration
 
 You can add the fieldtype to your blueprints like you would any other fieldtype that is already part of Statamic. For
-configuration, everything you need to do is select which currency you would like to use, and you're good to go.
+configuration, you simply need to select which currency you would like to use, and you're good to go. In addition, you 
+can enable sub-unit storage for the field's value.
 
-| Configuration Option | Description                                 | Default |
-|----------------------|---------------------------------------------|---------|
-| Currency             | The currency you want to use for the field. | `'USD'` |
+| Configuration Option | Description                                      | Default   |
+|----------------------|--------------------------------------------------|-----------|
+| Currency             | The currency you want to use for the field.      | `'USD'`   |
+| Sub-Units            | Store value in the currency's smallest sub-unit. | `false`   |
 
 ### Usage in Antlers Templates
 
@@ -56,7 +58,7 @@ handle `price`. After saving a value to an entry, this is what your data would l
 price: 1234.56
 ```
 
-When using the field in an Antlers template, you got the following information at hand:
+When using the field in an Antlers template, you have access to the following information:
 
 ```text
 {{ price:value }}                => 1234.56
@@ -71,7 +73,16 @@ When using the field in an Antlers template, you got the following information a
 {{ price:digits }}               => 2
 ```
 
-Same is true when using the Statamic API or in any other situation where the retrieved data is augmented.
+The same is true when using the Statamic API or in any other situation where the retrieved data is augmented. When using
+sub-unit value storage, the `formatted` values will be in the primary unit, while `value` is returned directly, in sub-units. 
+In the example above, with sub-unit storage enabled, the first three values would consist of the following:
+
+```text
+{{ price:value }}                => 123456
+{{ price:formatted }}            => '$1,234.56'
+{{ price:formatted_no_symbols }} => '1,234.56'
+...
+```
 
 ## Caveats
 
