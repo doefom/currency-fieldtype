@@ -102,7 +102,7 @@ class CurrencyFieldtype extends Fieldtype
             ],
 
             'store_sub_units' => [
-                'display' => 'Sub Units',
+                'display' => 'Sub-Units',
                 'instructions' => 'Store values in their lowest sub-unit _(eg, USD is stored in cents)_.',
                 'type' => 'toggle',
                 'default' => false,
