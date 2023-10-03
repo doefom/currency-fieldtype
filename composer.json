@@ -6,6 +6,11 @@
             "Doefom\\CurrencyFieldtype\\": "src"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests"            
+        ]
+    },
     "extra": {
         "statamic": {
             "name": "Currency Fieldtype",

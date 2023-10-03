@@ -24,7 +24,7 @@ class Currencies
     public static array $currencyList = [
         "USD" => ["name" => "US Dollar", "numeric_code" => "840"],
         "EUR" => ["name" => "Euro", "numeric_code" => "978"],
-        "JPY" => ["name" => "Yen", "numeric_code" => "392"],
+        "JPY" => ["name" => "Yen", "numeric_code" => "392", "sub_unit_factor" => 1],
         "GBP" => ["name" => "Pound Sterling", "numeric_code" => "826"],
         "AUD" => ["name" => "Australian Dollar", "numeric_code" => "036"],
         "CAD" => ["name" => "Canadian Dollar", "numeric_code" => "124"],
@@ -57,7 +57,6 @@ class Currencies
     public static function getSymbol(string $iso): string|null
     {
         collect(\Doefom\CurrencyFieldtype\Utils\Currencies::$currencyList)->filter(fn($item, $key) => collect(\Doefom\CurrencyFieldtype\Utils\Currencies::$temp)->has($key));
-
 
         $currency = self::getCurrency($iso);
         return Arr::get($currency, 'symbol');

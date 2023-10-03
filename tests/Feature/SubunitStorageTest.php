@@ -8,9 +8,8 @@ use Statamic\Facades\Site;
 use Statamic\Fields\Field;
 use Tests\TestCase;
 
-class CurrencyFieldtypeTest extends TestCase
+class SubunitStorageTest extends TestCase
 {
-
     protected CurrencyFieldtype $currencyFieldtype;
     protected Currency $augmented;
 
@@ -18,7 +17,7 @@ class CurrencyFieldtypeTest extends TestCase
      * Set up a field of currency fieldtype with a value of 1234.56 and the following configuration:
      * handle: price
      * iso: USD
-     *
+     * subunits: true
      * For NumberFormatter use the locale en_US.
      *
      * @return void
@@ -29,7 +28,7 @@ class CurrencyFieldtypeTest extends TestCase
 
         Site::setCurrent('en_US');
 
-        $value = 1234.56;
+        $value = 123456;
 
         // --------------------------------------------------------
         // SET UP FIELDTYPE
@@ -44,6 +43,7 @@ class CurrencyFieldtypeTest extends TestCase
             'instructions_position' => 'above',
             'visibility' => 'visible',
             'hide_display' => false,
+            'store_sub_units' => true,
         ]);
         $field->setValue($value);
 
@@ -62,25 +62,25 @@ class CurrencyFieldtypeTest extends TestCase
 
     public function test_pre_process()
     {
-        $result = $this->currencyFieldtype->preProcess(1234.56);
+        $result = $this->currencyFieldtype->preProcess(123456);
         $this->assertEquals('1,234.56', $result);
     }
 
     public function test_process()
     {
         $result = $this->currencyFieldtype->process('1,234.56');
-        $this->assertEquals(1234.56, $result);
+        $this->assertEquals(123456, $result);
     }
 
     public function test_pre_process_index()
     {
-        $result = $this->currencyFieldtype->preProcessIndex(1234.56);
+        $result = $this->currencyFieldtype->preProcessIndex(123456);
         $this->assertEquals('$1,234.56', $result);
     }
 
     public function test_augmented_value()
     {
-        $this->assertEquals(1234.56, $this->augmented->value);
+        $this->assertEquals(123456, $this->augmented->value);
     }
 
     public function test_augmented_display_value()

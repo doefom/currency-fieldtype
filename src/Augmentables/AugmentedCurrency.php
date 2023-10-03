@@ -48,7 +48,9 @@ class AugmentedCurrency extends AbstractAugmented
             'append',
             'group_separator',
             'radix_point',
-            'digits'
+            'digits',
+            'store_sub_units',
+            'sub_unit_factor',
         ];
     }
 
@@ -63,13 +65,25 @@ class AugmentedCurrency extends AbstractAugmented
     }
 
     /**
+     * Returns the value in primary units, taking into account sub-unit storage.
+     *
+     * @return mixed The value of the data.
+     */
+    public function displayValue()
+    {
+        return $this->usesSubUnitStorage() ?
+            $this->value() / $this->subUnitFactor() :
+            $this->value();
+    }
+
+    /**
      * Returns the formatted currency value.
      *
      * @return string The formatted currency value.
      */
     public function formatted()
     {
-        return $this->fmt->formatCurrency($this->value(), $this->iso());
+        return $this->fmt->formatCurrency($this->displayValue(), $this->iso());
     }
 
     /**
@@ -156,4 +170,24 @@ class AugmentedCurrency extends AbstractAugmented
         return $this->fmt->getAttribute(NumberFormatter::FRACTION_DIGITS);
     }
 
+    /**
+     * Determines if the value is stored in sub-units.
+     *
+     * @return bool True if the value should be stored in sub-units, false otherwise.
+     */
+    public function usesSubUnitStorage(): bool
+    {
+        return Arr::get($this->data->config, 'store_sub_units', false);
+    }
+
+    /**
+     * Returns the numeric code of the currency.
+     *
+     * @return int
+     */
+    public function subUnitFactor(): int
+    {
+        $currency = Currencies::getCurrency($this->iso());
+        return Arr::get($currency, 'sub_unit_factor', 100);
+    }
 }
