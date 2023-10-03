@@ -11,7 +11,7 @@
 
 <script>
 import Inputmask from "inputmask";
-    
+
 export default {
     mixins: [Fieldtype],
     mounted() {
