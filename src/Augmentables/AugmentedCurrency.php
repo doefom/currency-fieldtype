@@ -71,7 +71,7 @@ class AugmentedCurrency extends AbstractAugmented
      */
     public function displayValue()
     {
-        return $this->usesSubUnitStorage() ?
+        return $this->storeSubUnits() ?
             $this->value() / $this->subUnitFactor() :
             $this->value();
     }
@@ -175,7 +175,7 @@ class AugmentedCurrency extends AbstractAugmented
      *
      * @return bool True if the value should be stored in sub-units, false otherwise.
      */
-    public function usesSubUnitStorage(): bool
+    public function storeSubUnits(): bool
     {
         return Arr::get($this->data->config, 'store_sub_units', false);
     }
