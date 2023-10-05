@@ -20,6 +20,8 @@ Here's the information you'll get:
 - the group separator (for `'$1,234.56'` the group separator would be `,`)
 - the radix point (for `'$1,234.56'` the radix point would be `.`)
 - the number of decimal digits (for `'$1,234.56'` the number of digits would be `2`)
+- whether the value is stored in sub-units (`true`/`false`)
+- the sub-unit value (`123456`)
 
 ### Input Mask
 
@@ -43,10 +45,11 @@ You can add the fieldtype to your blueprints like you would any other fieldtype 
 configuration, you simply need to select which currency you would like to use, and you're good to go. In addition, you 
 can enable sub-unit storage for the field's value.
 
-| Configuration Option | Description                                      | Default   |
-|----------------------|--------------------------------------------------|-----------|
-| Currency             | The currency you want to use for the field.      | `'USD'`   |
-| Sub-Units            | Store value in the currency's smallest sub-unit. | `false`   |
+| Configuration Option | Description                                      | Default |
+|----------------------|--------------------------------------------------|---------|
+| Currency             | The currency you want to use for the field.      | `'USD'` |
+| Sub-Units            | Store value in the currency's smallest sub-unit. | `false` |
+| Default Value        | Set a default value.                             | `null`  |
 
 ### Usage in Antlers Templates
 
@@ -71,6 +74,8 @@ When using the field in an Antlers template, you have access to the following in
 {{ price:group_separator }}      => ','
 {{ price:radix_point }}          => '.'
 {{ price:digits }}               => 2
+{{ price:store_sub_units }}      => false
+{{ price:sub_unit_factor }}      => 100
 ```
 
 The same is true when using the Statamic API or in any other situation where the retrieved data is augmented. When using
@@ -108,7 +113,7 @@ currency into another.
 ```text
 "USD" => ["name" => "US Dollar", "numeric_code" => "840"],
 "EUR" => ["name" => "Euro", "numeric_code" => "978"],
-"JPY" => ["name" => "Yen", "numeric_code" => "392"],
+"JPY" => ["name" => "Yen", "numeric_code" => "392", "sub_unit_factor" => 1],
 "GBP" => ["name" => "Pound Sterling", "numeric_code" => "826"],
 "AUD" => ["name" => "Australian Dollar", "numeric_code" => "036"],
 "CAD" => ["name" => "Canadian Dollar", "numeric_code" => "124"],
