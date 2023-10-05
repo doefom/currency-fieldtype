@@ -13,6 +13,7 @@
 import Inputmask from "inputmask";
 
 export default {
+    inject: ['storeName'],
     mixins: [Fieldtype],
     mounted() {
         // Add input mask for currency fieldtype.
@@ -43,7 +44,12 @@ export default {
          * @returns {string}
          */
         symbol() {
-            return this.meta.symbol
+            if( this.meta.dynamic_currency_field ){
+                let selectedIso = this.$store.state.publish[this.storeName].values[this.meta.dynamic_currency_field];
+                return this.meta.available_symbols[selectedIso];
+            } else {
+                return this.meta.symbol;
+            }
         },
         /**
          * Returns true if the currency symbol is appended to the input, false otherwise.
