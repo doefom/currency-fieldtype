@@ -25,7 +25,7 @@ class CurrencyFieldtype extends Fieldtype
     public function defaultValue()
     {
         $default = Arr::get($this->field()->config(), 'default_value');
-        if( $default > 0 && $this->usesSubUnitStorage() && $this->isNew() ){
+        if( $default > 0 && $this->usesSubUnitStorage() ){
             // Default is multiplied, to "cancel out" the division.
             // Default is always stored in primary units,
             // and the same method used for value retrieval is used for initializing default.
