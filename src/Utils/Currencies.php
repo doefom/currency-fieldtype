@@ -2,6 +2,8 @@
 
 namespace Doefom\CurrencyFieldtype\Utils;
 
+use Illuminate\Support\Facades\App;
+use NumberFormatter;
 use Statamic\Support\Arr;
 
 class Currencies
@@ -62,4 +64,21 @@ class Currencies
         return Arr::get($currency, 'symbol');
     }
 
+    /**
+     * Get the symbol of all currencies in $currencyList, keyed by their ISO identifiers ("EUR", "USD", etc.).
+     * @return array
+     */
+    public static function getAllSymbols()
+    {
+        $formatter;
+
+        return collect(array_keys(self::$currencyList))
+            ->mapWithKeys(function($iso) use(&$formatter, &$count){
+                if( is_null($formatter) ){ 
+                    $formatter = App::make(NumberFormatter::class, ['iso' => $iso]);
+                }
+                $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, $iso);
+                return [ $iso => $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL) ];
+            });
+    }
 }

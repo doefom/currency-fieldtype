@@ -6,8 +6,8 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/cp.js',
-                'resources/css/cp.css'
+                'resources/js/currency-fieldtype.js',
+                // 'resources/css/currency-fieldtype.css'
             ],
             publicDirectory: 'resources/dist',
         }),

@@ -20,11 +20,18 @@ class CurrencyFieldtype extends Fieldtype
     /**
      * The blank/default value.
      *
-     * @return array
+     * @return null|integer
      */
     public function defaultValue()
     {
-        return null;
+        $default = Arr::get($this->field()->config(), 'default_value');
+        if( $default > 0 && $this->usesSubUnitStorage() && $this->isNew() ){
+            // Default is multiplied, to "cancel out" the division.
+            // Default is always stored in primary units,
+            // and the same method used for value retrieval is used for initializing default.
+            $default *= $this->getSubUnitFactor();
+        }
+        return $default;
     }
 
     /**
@@ -108,6 +115,14 @@ class CurrencyFieldtype extends Fieldtype
                 'default' => false,
                 'width' => 50
             ],
+
+            'default_value' => [
+                'display' => 'Default Value',
+                'instructions' => __('statamic::messages.fields_default_instructions'),
+                'type' => 'currency',
+                'width' => 50,
+                'dynamic_currency_field' => 'iso',
+            ],
         ];
     }
 
@@ -120,6 +135,8 @@ class CurrencyFieldtype extends Fieldtype
     {
         $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
 
+        $dynamicCurrencyField = $this->field()->config()['dynamic_currency_field'] ?? false;
+
         return [
             'symbol' => $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL),
             'append' => str_ends_with($fmt->getPattern(), '¤'),
@@ -127,6 +144,8 @@ class CurrencyFieldtype extends Fieldtype
             'radix_point' => $fmt->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL),
             'digits' => $fmt->getAttribute(NumberFormatter::FRACTION_DIGITS),
             'handle' => $this->field()->handle(),
+            'dynamic_currency_field' => $dynamicCurrencyField,
+            'available_symbols' => $dynamicCurrencyField ? Currencies::getAllSymbols() : null,
         ];
     }
 
@@ -148,7 +167,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     private function getIso(): string
     {
-        return Arr::get($this->field()->config(), 'iso');
+        return Arr::get($this->field()->config(), 'iso', 'USD');
     }
 
     private function convertToStorage($value)

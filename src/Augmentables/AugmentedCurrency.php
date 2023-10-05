@@ -27,7 +27,7 @@ class AugmentedCurrency extends AbstractAugmented
     public function __construct($data)
     {
         parent::__construct($data);
-        $this->fmt = App::make(NumberFormatter::class, ['iso' => $this->iso()]);;
+        $this->fmt = App::make(NumberFormatter::class, ['iso' => $this->iso()]);
     }
 
     /**
