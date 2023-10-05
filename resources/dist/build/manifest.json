@@ -1,12 +1,7 @@
 {
-  "resources/css/cp.css": {
-    "file": "assets/cp-4ed993c7.js",
+  "resources/js/currency-fieldtype.js": {
+    "file": "assets/currency-fieldtype-bb097b42.js",
     "isEntry": true,
-    "src": "resources/css/cp.css"
-  },
-  "resources/js/cp.js": {
-    "file": "assets/cp-bb097b42.js",
-    "isEntry": true,
-    "src": "resources/js/cp.js"
+    "src": "resources/js/currency-fieldtype.js"
   }
 }
