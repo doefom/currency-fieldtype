@@ -21,7 +21,7 @@ Here's the information you'll get:
 - the radix point (for `'$1,234.56'` the radix point would be `.`)
 - the number of decimal digits (for `'$1,234.56'` the number of digits would be `2`)
 - whether the value is stored in sub-units (`true`/`false`)
-- the sub-unit value (`123456`)
+- the sub-unit-factor for the selected currency (`100`)
 
 ### Input Mask
 
