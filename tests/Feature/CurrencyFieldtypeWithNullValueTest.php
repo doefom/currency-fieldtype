@@ -8,14 +8,14 @@ use Statamic\Facades\Site;
 use Statamic\Fields\Field;
 use Tests\TestCase;
 
-class CurrencyFieldtypeTest extends TestCase
+class CurrencyFieldtypeWithNullValueTest extends TestCase
 {
 
     protected CurrencyFieldtype $currencyFieldtype;
     protected Currency $augmented;
 
     /**
-     * Set up a field of currency fieldtype with a value of 1234.56 and the following configuration:
+     * Set up a field of currency fieldtype with a value of null and the following configuration:
      * handle: price
      * iso: USD
      *
@@ -29,7 +29,7 @@ class CurrencyFieldtypeTest extends TestCase
 
         Site::setCurrent('en_US');
 
-        $value = 1234.56;
+        $value = null;
 
         // --------------------------------------------------------
         // SET UP FIELDTYPE
@@ -60,40 +60,40 @@ class CurrencyFieldtypeTest extends TestCase
 
     public function test_pre_process()
     {
-        $result = $this->currencyFieldtype->preProcess(1234.56);
-        $this->assertEquals('1,234.56', $result);
+        $result = $this->currencyFieldtype->preProcess(null);
+        $this->assertNull($result);
     }
 
     public function test_process()
     {
-        $result = $this->currencyFieldtype->process('1,234.56');
-        $this->assertEquals(1234.56, $result);
+        $result = $this->currencyFieldtype->process(null);
+        $this->assertNull($result);
     }
 
     public function test_pre_process_index()
     {
-        $result = $this->currencyFieldtype->preProcessIndex(1234.56);
-        $this->assertEquals('$1,234.56', $result);
+        $result = $this->currencyFieldtype->preProcessIndex(null);
+        $this->assertNull($result);
     }
 
     public function test_augmented_value()
     {
-        $this->assertEquals(1234.56, $this->augmented->value);
+        $this->assertEquals(null, $this->augmented->value);
     }
 
     public function test_augmented_display_value()
     {
-        $this->assertEquals(1234.56, $this->augmented->display_value);
+        $this->assertEquals(null, $this->augmented->display_value);
     }
 
     public function test_augmented_formatted()
     {
-        $this->assertEquals('$1,234.56', $this->augmented->formatted);
+        $this->assertNull($this->augmented->formatted);
     }
 
     public function test_augmented_formatted_no_symbol()
     {
-        $this->assertEquals('1,234.56', $this->augmented->formattedNoSymbol);
+        $this->assertNull($this->augmented->formattedNoSymbol);
     }
 
     public function test_augmented_iso()

@@ -79,24 +79,28 @@ class AugmentedCurrency extends AbstractAugmented
     /**
      * Returns the formatted currency value.
      *
-     * @return string The formatted currency value.
+     * @return string|null The formatted currency value.
      */
     public function formatted()
     {
-        return $this->fmt->formatCurrency($this->displayValue(), $this->iso());
+        if( $this->hasNonNullValue() ){
+            return $this->fmt->formatCurrency($this->displayValue(), $this->iso());
+        } 
     }
 
     /**
      * Returns the formatted currency value without the symbol.
      *
-     * @return string The formatted currency value without the symbol.
+     * @return string|null The formatted currency value without the symbol.
      */
     public function formattedNoSymbol()
     {
-        $formatted = $this->formatted();
-        $symbol = $this->fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+        if( $this->hasNonNullValue() ){
+            $formatted = $this->formatted();
+            $symbol = $this->fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 
-        return trim(str_replace($symbol, '', $formatted));
+            return trim(str_replace($symbol, '', $formatted));
+        }
     }
 
     /**
@@ -189,5 +193,15 @@ class AugmentedCurrency extends AbstractAugmented
     {
         $currency = Currencies::getCurrency($this->iso());
         return Arr::get($currency, 'sub_unit_factor', 100);
+    }
+
+    /**
+     * Determines if the value is non-null.
+     *
+     * @return bool True if the value is anything other than null, false otherwise.
+     */
+    private function hasNonNullValue()
+    {
+        return ! is_null($this->value());
     }
 }
