@@ -47,10 +47,8 @@ class CurrencyFieldtypeTest extends TestCase
         ]);
         $field->setValue($value);
 
-        $currencyFieldtype = new CurrencyFieldtype();
-        $currencyFieldtype->setField($field);
-
-        $this->currencyFieldtype = $currencyFieldtype;
+        $this->currencyFieldtype = new CurrencyFieldtype();
+        $this->currencyFieldtype->setField($field);
 
         // --------------------------------------------------------
         // SET UP AUGMENTED INSTANCE
