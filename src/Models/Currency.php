@@ -11,10 +11,10 @@ class Currency implements Augmentable
 {
     use HasAugmentedInstance;
 
-    public float $value;
+    public float|null $value;
     public array $config;
 
-    public function __construct(float $value, array $config)
+    public function __construct(?float $value, array $config)
     {
         $this->value = $value;
         $this->config = $config;
