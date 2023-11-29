@@ -66,7 +66,7 @@ When using the field in an Antlers template, you have access to the following in
 ```text
 {{ price:value }}                => 1234.56
 {{ price:formatted }}            => '$1,234.56'
-{{ price:formatted_no_symbols }} => '1,234.56'
+{{ price:formatted_no_symbol }}  => '1,234.56'
 {{ price:iso }}                  => 'USD'
 {{ price:numeric_code }}         => '840'
 {{ price:symbol }}               => '$'
@@ -85,7 +85,7 @@ In the example above, with sub-unit storage enabled, the first three values woul
 ```text
 {{ price:value }}                => 123456
 {{ price:formatted }}            => '$1,234.56'
-{{ price:formatted_no_symbols }} => '1,234.56'
+{{ price:formatted_no_symbol }}  => '1,234.56'
 ...
 ```
 
