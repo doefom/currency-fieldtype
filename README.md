@@ -136,6 +136,7 @@ currency into another.
 "TWD" => ["name" => "New Taiwan Dollar", "numeric_code" => "901"],
 "THB" => ["name" => "Baht", "numeric_code" => "764"],
 "MYR" => ["name" => "Malaysian Ringgit", "numeric_code" => "458"],
+"CZK" => ["name" => "Czech Koruna", "numeric_code" => "203"],
 ```
 
 Your currency is missing? Feel free to submit a [GitHub issue](https://github.com/doefom/currency-fieldtype/issues),
