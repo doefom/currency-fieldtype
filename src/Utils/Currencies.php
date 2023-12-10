@@ -49,6 +49,7 @@ class Currencies
         "TWD" => ["name" => "New Taiwan Dollar", "numeric_code" => "901"],
         "THB" => ["name" => "Baht", "numeric_code" => "764"],
         "MYR" => ["name" => "Malaysian Ringgit", "numeric_code" => "458"],
+        "CZK" => ["name" => "Czech Koruna", "numeric_code" => "203"],
     ];
 
     /**
@@ -74,7 +75,7 @@ class Currencies
 
         return collect(array_keys(self::$currencyList))
             ->mapWithKeys(function($iso) use(&$formatter, &$count){
-                if( is_null($formatter) ){ 
+                if( is_null($formatter) ){
                     $formatter = App::make(NumberFormatter::class, ['iso' => $iso]);
                 }
                 $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, $iso);
