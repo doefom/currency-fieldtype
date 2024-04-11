@@ -2,7 +2,6 @@
 
 namespace Doefom\CurrencyFieldtype\Filters;
 
-use Statamic\Query\Scopes\Filters\Fields\FieldtypeFilter;
 use Statamic\Query\Scopes\Filters\Fields\Number as NumberFilter;
 
 class CurrencyFilter extends NumberFilter
