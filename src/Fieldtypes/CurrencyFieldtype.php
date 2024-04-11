@@ -202,7 +202,7 @@ class CurrencyFieldtype extends Fieldtype
      *
      * @return bool The sub-unit boolean of the currency.
      */
-    private function usesSubUnitStorage(): bool
+    public function usesSubUnitStorage(): bool
     {
         return Arr::get($this->field()->config(), 'store_sub_units', false);
     }
