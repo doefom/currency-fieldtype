@@ -2,6 +2,7 @@
 
 namespace Doefom\CurrencyFieldtype\Fieldtypes;
 
+use Doefom\CurrencyFieldtype\Filters\CurrencyFilter;
 use Doefom\CurrencyFieldtype\Models\Currency;
 use Doefom\CurrencyFieldtype\Utils\Currencies;
 use Illuminate\Support\Facades\App;
@@ -207,4 +208,12 @@ class CurrencyFieldtype extends Fieldtype
         return Arr::get($this->field()->config(), 'store_sub_units', false);
     }
 
+    /**
+     * Sets the custom filter type used in list view filters.
+     * @return CurrencyFilter
+     */
+    public function filter()
+    {
+        return new CurrencyFilter($this);
+    }
 }
