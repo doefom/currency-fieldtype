@@ -4,6 +4,11 @@ Currency Fieldtype is a Statamic addon that lets you handle any currency with ea
 any, but many at least. 25 of the world's most traded ones to be precise. See
 which [currencies we currently support](#supported-currencies).
 
+### Supported Versions
+
+- ✅ Statamic v4
+- ✅ Statamic v5
+
 ## Features
 
 The addon makes sure you always get the right format depending on the locale and currency that's being used. While you
