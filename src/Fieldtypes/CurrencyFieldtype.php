@@ -102,7 +102,7 @@ class CurrencyFieldtype extends Fieldtype
                 'display' => 'Currency',
                 'instructions' => 'Select which currency you want to use for the field.',
                 'type' => 'select',
-                'default' => 'USD',
+                'default' => Currencies::$fallbackCurrency,
                 'options' => collect(Currencies::$currencyList)
                     ->map(fn($item, $key) => Arr::get($item, 'name') . " ($key)")
                     ->sortBy(fn($val) => $val),
@@ -168,7 +168,7 @@ class CurrencyFieldtype extends Fieldtype
      */
     private function getIso(): string
     {
-        return Arr::get($this->field()->config(), 'iso', 'USD');
+        return Arr::get($this->field()->config(), 'iso', Currencies::$fallbackCurrency);
     }
 
     private function convertToStorage($value)
