@@ -8,6 +8,10 @@ use Statamic\Support\Arr;
 
 class Currencies
 {
+    /**
+     * The fallback currency to use when not specified.
+     */
+    public static string $fallbackCurrency = "USD";
 
     /**
      * Get the currency details by its ISO identifier ("EUR", "USD", etc.).
