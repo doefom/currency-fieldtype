@@ -110,7 +110,7 @@ class AugmentedCurrency extends AbstractAugmented
      */
     public function iso(): string|null
     {
-        return Arr::get($this->data->config, 'iso');
+        return Arr::get($this->data->config, 'iso', Currencies::$fallbackCurrency);
     }
 
     /**
