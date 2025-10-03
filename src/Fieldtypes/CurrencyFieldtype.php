@@ -50,7 +50,7 @@ class CurrencyFieldtype extends Fieldtype
         $data = $this->convertFromStorage($data);
 
         $fmt = App::make(NumberFormatter::class, ['iso' => $this->getIso()]);
-        $formatted = $fmt->formatCurrency($data, $this->getIso());
+        $formatted = $fmt->formatCurrency($fmt->parse($data), $this->getIso());
         $symbol = $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 
         return trim(str_replace($symbol, '', $formatted));
