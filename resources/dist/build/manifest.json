@@ -1,7 +1,8 @@
 {
   "resources/js/currency-fieldtype.js": {
-    "file": "assets/currency-fieldtype-bb097b42.js",
-    "isEntry": true,
-    "src": "resources/js/currency-fieldtype.js"
+    "file": "assets/currency-fieldtype-D1tMS1FX.js",
+    "name": "currency-fieldtype",
+    "src": "resources/js/currency-fieldtype.js",
+    "isEntry": true
   }
 }

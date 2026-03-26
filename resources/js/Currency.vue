@@ -1,84 +1,52 @@
 <template>
-    <text-input
-        :value="value"
-        @input="update"
+    <Input
+        :model-value="value"
         :id="id"
-        :append="append ? this.symbol : false"
-        :prepend="!append ? this.symbol : false"
+        :append="append ? symbol : null"
+        :prepend="!append ? symbol : null"
         type="text"
+        @update:model-value="update"
     />
 </template>
 
-<script>
-import Inputmask from "inputmask";
+<script setup>
+import { computed, onMounted } from 'vue';
+import { Fieldtype } from '@statamic/cms';
+import { injectPublishContext, Input } from '@statamic/cms/ui';
+import Inputmask from 'inputmask';
 
-export default {
-    inject: ['storeName'],
-    mixins: [Fieldtype],
-    mounted() {
-        // Add input mask for currency fieldtype.
-        const config = {
-            alias: 'currency',
-            groupSeparator: this.groupSeparator,
-            digits: this.digits,
-        }
+const emit = defineEmits(Fieldtype.emits);
+const props = defineProps(Fieldtype.props);
+const { expose, update } = Fieldtype.use(emit, props);
+defineExpose(expose);
 
-        // Is the currency has at least one radix point, add the radix point to the input mask configuration.
-        if (this.digits > 0) {
-            config.radixPoint = this.radixPoint;
-        }
+const { values } = injectPublishContext();
 
-        // Apply the input mask to the currency field.
-        Inputmask(config).mask(this.id);
-    },
-    computed: {
-        /**
-         * The id of the input field.
-         * @returns {string}
-         */
-        id() {
-            return 'currency-input-' + this.fieldId;
-        },
-        /**
-         * Returns the symbol for the currency input.
-         * @returns {string}
-         */
-        symbol() {
-            if( this.meta.dynamic_currency_field ){
-                let selectedIso = this.$store.state.publish[this.storeName].values[this.meta.dynamic_currency_field];
-                return this.meta.available_symbols[selectedIso];
-            } else {
-                return this.meta.symbol;
-            }
-        },
-        /**
-         * Returns true if the currency symbol is appended to the input, false otherwise.
-         * @returns {boolean}
-         */
-        append() {
-            return this.meta.append
-        },
-        /**
-         * The radix point symbol to use.
-         * @returns {any}
-         */
-        radixPoint() {
-            return this.meta.radix_point
-        },
-        /**
-         * The group separator symbol to use.
-         * @returns {string}
-         */
-        groupSeparator() {
-            return this.meta.group_separator
-        },
-        /**
-         * The number of decimal digits.
-         * @returns {number}
-         */
-        digits() {
-            return this.meta.digits
-        },
-    },
-};
+const id = computed(() => 'currency-input-' + props.fieldId);
+const append = computed(() => props.meta.append);
+const radixPoint = computed(() => props.meta.radix_point);
+const groupSeparator = computed(() => props.meta.group_separator);
+const digits = computed(() => props.meta.digits);
+
+const symbol = computed(() => {
+    if (props.meta.dynamic_currency_field) {
+        const selectedIso = values.value[props.meta.dynamic_currency_field];
+        return props.meta.available_symbols[selectedIso];
+    }
+    return props.meta.symbol;
+});
+
+onMounted(() => {
+    const config = {
+        alias: 'currency',
+        groupSeparator: groupSeparator.value,
+        digits: digits.value,
+    };
+
+    if (digits.value > 0) {
+        config.radixPoint = radixPoint.value;
+    }
+
+    Inputmask(config).mask(id.value);
+});
 </script>
