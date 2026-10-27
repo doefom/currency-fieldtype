@@ -6,8 +6,12 @@ which [currencies we currently support](#supported-currencies).
 
 ### Supported Versions
 
-- ✅ Statamic v4
-- ✅ Statamic v5
+| Addon version | Statamic version | PHP version |
+|---------------|------------------|-------------|
+| v2.x          | v6               | ^8.3        |
+| v1.x          | v4, v5           | ^8.1        |
+
+Using Statamic v4 or v5? Require `doefom/currency-fieldtype:^1.4`.
 
 ## Features
 
