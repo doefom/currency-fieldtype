@@ -4,13 +4,12 @@
         "dev": "vite",
         "build": "vite build"
     },
-    "devDependencies": {
-        "@vitejs/plugin-vue2": "^2.2.0",
-        "laravel-vite-plugin": "^0.7.2",
-        "vite": "^4.0.0"
-    },
     "dependencies": {
-        "inputmask": "^5.0.8",
-        "vue": "^2.7.14"
+        "@statamic/cms": "file:./vendor/statamic/cms/resources/dist-package",
+        "inputmask": "^5.0.8"
+    },
+    "devDependencies": {
+        "laravel-vite-plugin": "^1.2.0",
+        "vite": "^6.3.4"
     }
 }

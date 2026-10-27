@@ -19,7 +19,6 @@ class ServiceProvider extends AddonServiceProvider
             // 'resources/css/currency-fieldtype.css',
         ],
         'publicDirectory' => 'resources/dist',
-        'hotFile' => __DIR__ . '/../resources/dist/hot',
     ];
 
     public function register()

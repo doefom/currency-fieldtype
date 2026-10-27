@@ -1,4 +1,5 @@
-import Fieldtype from './Currency.vue';
+import CurrencyFieldtype from './Currency.vue';
 
-// Should be named [snake_case_handle]-fieldtype
-Statamic.$components.register('currency-fieldtype', Fieldtype);
+Statamic.booting(() => {
+    Statamic.$components.register('currency-fieldtype', CurrencyFieldtype);
+});
